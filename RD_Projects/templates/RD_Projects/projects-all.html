@@ -1,0 +1,222 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block style %}
+
+    <!-- Custom Page stylesheet -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/products-services-style.css' %}"/>
+    <style>
+        #broucher-btn {
+
+            opacity: 0;
+        }
+
+         .imageDiv img:hover{
+            opacity: 0.3;
+        }
+
+        #imageDiv:hover #broucher-btn {
+            /*opacity: 0.4;*/
+            opacity: 1;
+        }
+
+
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container mx-auto md-padding">
+        <div class="row">
+
+            <!-- Section header -->
+            <div class="section-header text-center">
+                <h2 class="title">Products</h2>
+            </div>
+            <!-- /Section header -->
+
+
+            <div id="myBtnContainer" class="container">
+                <div class="text-center" style="margin-bottom: 30px">
+                    {% for domain in domains %}
+                        <button class="btn tab-btn"
+                                onclick="filterSelection('{{ domain.name }}')">{{ domain.name }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            {% for project in projects %}
+                <div class="col-md-3 column {{ project.domain.name }}">
+                    <div class="card">
+
+                        <div class="card-head">
+                            {% if project.image %}
+                                <img class="card-img-top1" src="{{ project.image.url }}"
+                                     alt="">
+                            {% elif project.name != None %}
+                                <img class="card-img-top1" src="{% static 'images/images/item-1.jpg' %}">
+                            {% endif %}
+                        </div>
+
+                        <div class="card-body">
+                            <div class="heading-wrapper h50"><h5 class="card-subtitle">{{ project.name }}</h5></div>
+                            <div class="text-wrapper"><p class="card-text">{{ project.description }}</p>
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer" style="border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;">
+                            <a class="btn btn-sm main-btn1 modal-btn" data-id="{{ project.id }}"><i
+                                    class="fa fa-arrow-circle-right"></i> View Details</a>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl modal-center shadow-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: none; padding-bottom: 0px">
+                    <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding-top: 0px">
+                    <div class="container">
+                        <div class="row">
+                            <div class="contentDiv row">
+
+                                <div class="test col-md-8"></div>
+                                <div id="imageDiv" class="imageDiv col-md-4">
+                                    <img src="#" style="max-width: 100%; margin-bottom: 10px">
+                                    <a class="btn btn-sm btn-danger broucher-btn" id="broucher-btn"
+                                       href="" download="broucher" style="position: absolute; top: 50%; left: 75%; background-color: red; font-family: Arial, Helvetica, Sans-Serif">
+                                        <i class="fa fa-download"></i> Download Brochure
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top: none">
+{#                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal -->
+
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+
+
+        filterSelection('All') // Execute the function and show all columns
+        $('.tab-btn:first-child').addClass("active");
+
+        function filterSelection(c) {
+            var x, i;
+            x = document.getElementsByClassName("column");
+            if (c == 'All') c = "";
+            // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+            for (i = 0; i < x.length; i++) {
+                w3RemoveClass(x[i], "show");
+                console.log(x[i].className.indexOf(c));
+                if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+            }
+        }
+
+        // Show filtered elements
+        function w3AddClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+                if (arr1.indexOf(arr2[i]) == -1) {
+                    element.className += " " + arr2[i];
+                }
+            }
+        }
+
+        // Hide elements that are not selected
+        function w3RemoveClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+                while (arr1.indexOf(arr2[i]) > -1) {
+                    arr1.splice(arr1.indexOf(arr2[i]), 1);
+                }
+            }
+            element.className = arr1.join(" ");
+        }
+
+        // Add active class to the current button (highlight it)
+        var btnContainer = document.getElementById("myBtnContainer");
+        var btns = btnContainer.getElementsByClassName("btn");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function () {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            });
+        }
+    </script>
+
+    <script>
+        $('.modal-btn').on('click', function (e) {
+            e.preventDefault();
+            var button = $(this);
+            var id = button.attr('data-id');
+
+
+            $.ajax({
+                url: 'get_project_detail/',
+                content_type: 'application/json',
+                type: 'GET',
+                data: {
+                    id: id,
+                },
+                success: function (res) {
+                    var data = JSON.parse(res);
+                    data = data[0];
+                    data = data['fields'];
+                    console.log(data.name)
+
+                    $('.modal-title').text(data.name);
+
+                    $('.test').empty();
+                    $('.test').append(data.content);
+                    $('.imageDiv img').attr('src',"../static/"+data.voucher);
+                    $('.broucher-btn').attr('href',"../static/"+data.voucher);
+                    $(".modal").modal('show');
+
+                }
+            });
+
+
+        });
+
+
+        $('.modal').on('click', function () {
+             $(".modal").modal('hide');
+        });
+
+
+    </script>
+{% endblock %}

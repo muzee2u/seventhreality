@@ -1,0 +1,108 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block content %}
+
+    <style>
+        .bg-section {
+            height: 400px;
+        }
+
+        .product-image {
+            max-width: 100%;
+            max-height: 100%;
+        {#height: 100%;#} width: 100%;
+            display: block;
+
+        }
+    </style>
+
+    {% for s in service %}
+        <div class="bg-section mb-3">
+            <img class="product-image" src="{{ s.image.url }}">
+        </div>
+    {% endfor %}
+
+    <!-- Portfolio -->
+    <div id="portfolio" class="section md-padding bg-grey">
+
+        <!-- Container -->
+        <div class="container">
+            <!-- Row -->
+            <div class="row">
+
+                {% for s in service %}
+
+                    <!-- Section header -->
+                    <div class="section-header text-center">
+                        <h2 class="title">{{ s.name }}</h2>
+                    </div>
+                    <!-- /Section header -->
+
+                    <!-- Work -->
+                    <div class="col-md-8">
+                        <div><h3>Description</h3></div>
+                        <div>{{ s.content|safe }}</div>
+                        {% if p.video %}
+                            <video poster="{% static p.image.url %}" width="500px" height="350px"
+                                   controls="controls" preload="none" onclick="this.play()">
+                                <source type="video/mp4" src="{{ p.video.url }}">
+                            </video>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div class="col-md-4 voucher work text-center">
+                    {% for p in project %}
+                        {% if p.voucher %}
+                            <button class="btn btn-lg main-btn" type="submit"
+                                    onclick="window.location.href='{{ p.voucherPDF.url }}'"><i
+                                    class="fa fa-download"> Download Brochure</i>
+                            </button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+
+            </div>
+            <!-- /Row -->
+        </div>
+        <!-- /Container -->
+
+    </div>
+    <!-- /Portfolio -->
+
+    <!-- modal -->
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            {% for s in service %}
+                {% if s.voucher %}
+                    <div class="modal-content">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="position: absolute; top: 5px; right: 5px"></button>
+                        <img src="{{ s.voucher.url }}">
+                        <a class="btn btn-lg main-btn"
+                           href="{{ s.voucher.url }}" download="broucher">
+                            <i class="fa fa-download"> Download Brochure</i>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+    <!-- /modal -->
+
+{% endblock %}
+
+{% block script %}
+  <script>
+      $(document).ready(function () {
+          {% for s in service %}
+              {% if s.voucher %}
+                  $(".modal").modal('show');
+              {% endif %}
+          {% endfor %}
+      });
+  </script>
+{% endblock %}

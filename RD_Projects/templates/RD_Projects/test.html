@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <select multiple id="filterNumber">
+        <option value="1">Option 1</option>
+        <option value="3">Option 3</option>
+        <option value="5">Option 5</option>
+    </select>
+    <button type="button" class="filterBtn">Filter</button>
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="filter_1">
+            <td>A1</td>
+        </tr>
+        <tr class="filter_1">
+            <td>A2</td>
+        </tr>
+        <tr class="filter_5">
+            <td>B</td>
+        </tr>
+        <tr class="filter_3">
+            <td>C</td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+
+<script>
+    $(document).on("click", '.filterBtn', function() {
+
+    {#const filterNumber = $('#filterNumber').val();#}
+    filter_records(table, gene_stack, second_chice);
+    function  filter_records(table_rows, filterNumbers, column_index) {
+        table_rows.hide();
+        table_rows.filter(function (i, v) {
+            for (var d = 0; d < filterNumbers.length; d++) {
+                if ($(this).find('td').eq(column_index).text() === filterNumbers[d]) {
+                    return true;
+                }
+            }
+            return false;
+        }).show();
+    }
+
+    })
+</script>

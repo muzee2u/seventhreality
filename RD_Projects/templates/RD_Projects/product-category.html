@@ -1,0 +1,84 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block style %}
+
+        <style>
+
+
+        .card {
+            background: #EEE;
+            border-radius: 20px;
+            border: 1px solid #0f2a5f;
+            color: rgba(250, 250, 250, 0.8);
+            margin-bottom: 5rem;
+        }
+
+         .card-img {
+             height: 100px;
+             width: 100%;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+
+        }
+
+
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img class="card-img" src="{% static 'img/ES.jpeg' %}" alt="...">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h1 class="card-title"></h1>
+{#                                <p class="card-text">This is a wider card with supporting text below as a natural#}
+{#                                    lead-in to#}
+{#                                    additional content. This content is a little bit longer.</p>#}
+                                <p class="card-text">
+                                    <h3 class="">Attendance Solutions</h3>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-md-5 row">
+                    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-5">
+                <img class="card-img" src="{% static 'img/ES.jpeg' %}" alt="...">
+            </div>
+            <div class="col-md-7">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+{#                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to#}
+{#                        additional content. This content is a little bit longer.</p>#}
+                    <p class="card-text">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>
+{#            <div class="col-lg-1"></div>#}
+{#            <div class="col-md-1"></div>#}
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+

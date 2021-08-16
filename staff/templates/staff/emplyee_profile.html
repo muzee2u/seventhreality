@@ -1,0 +1,40 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% for e in employee %}
+        <div class="container md-padding">
+            <div class="container-wrapper">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="{{ e.image.url }}" height="200px" width="200px" style="float: left; clear: right; border-radius: 50%">   </div><div class="col-md-7">
+                    <h2 style="margin-top: 10px; color: #0f2a5f;">{{ e.name }}</h2>
+                    <h4 style="color: #F3581F;">{{ e.designation }}</h4>
+                    <p>{{ e.profile|safe }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <hr>
+
+    {% for employee in employees %}
+        <div class="container md-padding">
+            <div class="container-wrapper">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="{{ employee.image.url }}" height="200px" width="200px"
+                             style="float: left; clear: right; border-radius: 50%"></div>
+                    <div class="col-md-7">
+                        <h2 style="margin-top: 10px; color: #0f2a5f;">{{ employee.name }}</h2>
+                        <h4 style="color: #F3581F;">{{ employee.designation }}</h4>
+                        <p>{{ employee.profile|safe }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Portfolio -->
+    <div id="portfolio" class="section md-padding bg-grey">
+
+        <!-- Container -->
+        <div class="container">
+
+            <!-- Row -->
+            <div class="row">
+
+                <!-- Section header -->
+                <div class="section-header text-center">
+                    <h2 class="title">Featured Domains</h2>
+                </div>
+                <!-- /Section header -->
+
+                {% for domain in domains %}
+                <!-- Work -->
+                <div class="col-md-4 col-xs-6 work">
+                    <img class="img-responsive" src="{{ domain.image.url }}" alt="" style="height: 350px">
+                    <div class="overlay"></div>
+                    <div class="work-content">
+                        <span>Category</span>
+                        <h3>{{ domain.name   }}</h3>
+                        <div class="work-link">
+                            <a href="{% url 'RD_Project:projects_all' domain.id %}"><i class="fa fa-external-link"></i></a>
+                            <a class="lightbox" href="{{ domain.image }}"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Work -->
+                {% endfor %}
+
+                <!-- Work -->
+                <div class="col-md-4 col-xs-6 work">
+                    <img class="img-responsive" src="{% static 'img/work11.jpg' %}" alt="" width="600px" height="600px">
+                    <div class="overlay"></div>
+                    <div class="work-content">
+                        <span>Category</span>
+                        <h3>Phylogenetics</h3>
+                        <div class="work-link">
+                            <a href="#"><i class="fa fa-external-link"></i></a>
+                            <a class="lightbox" href="{% static 'img/work1.jpg' %}"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Work -->
+
+            </div>
+            <!-- /Row -->
+
+        </div>
+        <!-- /Container -->
+
+    </div>
+    <!-- /Portfolio -->
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Team -->
+    <div id="team" class="section md-padding">
+
+        <!-- Container -->
+        <div class="container">
+
+            <!-- Row -->
+            <div class="row">
+
+                <!-- Section header -->
+                <div class="section-header text-center">
+                    <h2 class="title">Our Team</h2>
+                </div>
+                <!-- /Section header -->
+
+                {% for employee in employees %}
+                <!-- team -->
+                <div class="col-sm-4">
+
+                        <div class="gtco-testimonials">
+                            <div class="card text-center"><img class="card-img-top"
+                                                               src="{{ employee.image.url }}"
+                                                               alt="">
+                                <div class="card-body">
+                                    <a href="{% url 'staff:staff_detail' employee.id %}"><h5>{{ employee.name }} <br/>
+                                        <span> {{ employee.designation }} </span>
+                                    </h5></a>
+                                    <div class="employee-profile">{{ employee.profile|safe }} </div>
+                                    <a href="{% url 'staff:staff_detail' employee.id %}">read more...</a>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <!-- /team -->
+                {% endfor %}
+
+
+
+            </div>
+            <!-- /Row -->
+
+        </div>
+        <!-- /Container -->
+
+    </div>
+    <!-- /Team -->
+
+
+{% endblock %}
